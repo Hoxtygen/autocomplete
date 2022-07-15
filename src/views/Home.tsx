@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AutoComplete } from "../components/AutoComplete";
 import { Suggestions } from "../components/Suggestions";
-import { debounce, searchCharacters } from "../utils/helpers";
+import {
+  debounce,
+  searchCharacters,
+  searchCharactersLocally,
+} from "../utils/helpers";
 
 export const Home = () => {
   const [characters, setCharacters] = useState<string[]>([]);
@@ -19,6 +23,7 @@ export const Home = () => {
     debounceCall(text.trim());
     !text ? setDisplay(false) : setDisplay(true);
   };
+
   const handleSuggestionClick = (text: string) => {
     setSearchTerm(text);
     setCharacters([]);
@@ -32,6 +37,17 @@ export const Home = () => {
     }
   };
 
+  const localDebounceCall = debounce(async (name: string) => {
+    setCharacters(await searchCharactersLocally(name));
+  }, 350);
+
+  const localHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const text = event.target.value;
+    setSearchTerm(text.trim());
+    localDebounceCall(text.trim());
+    !text ? setDisplay(false) : setDisplay(true);
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
 
@@ -43,7 +59,10 @@ export const Home = () => {
   return (
     <div className="home">
       <div ref={autoCompleteRef} className="home-inner">
-        <AutoComplete searchTerm={searchTerm} handleChange={handleChange} />
+        <AutoComplete
+          searchTerm={searchTerm}
+          handleChange={localHandleChange}
+        />
         {display ? (
           <Suggestions
             searchTerm={searchTerm}
