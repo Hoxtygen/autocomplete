@@ -7,7 +7,6 @@ export const Suggestions = ({
   searchTerm,
   handleSuggestionClick,
 }: SuggestionProps) => {
-	 
   return (
     <div className="suggestions-container">
       {suggestions.length === 0 && searchTerm !== "" ? (
@@ -16,7 +15,7 @@ export const Suggestions = ({
         <ul className="suggestions-options">
           {suggestions.map((suggest) => (
             <li
-			className="suggestions-item"
+              className="suggestions-item"
               key={suggest}
               onClick={() => handleSuggestionClick(suggest)}
               dangerouslySetInnerHTML={{
