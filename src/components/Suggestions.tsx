@@ -1,6 +1,6 @@
 import React from "react";
 import { SuggestionProps } from "../types";
-import { highlightMatchingText } from "../utils/fetch";
+import { highlightMatchingText } from "../utils/helpers";
 
 export const Suggestions = ({
   suggestions,
@@ -14,10 +14,10 @@ export const Suggestions = ({
         <p>No result match your query</p>
       ) : (
         <ul className="suggestions-options">
-          {suggestions.map((suggest, index) => (
+          {suggestions.map((suggest) => (
             <li
 			className="suggestions-item"
-              key={index}
+              key={suggest}
               onClick={() => handleSuggestionClick(suggest)}
               dangerouslySetInnerHTML={{
                 __html: highlightMatchingText(suggest, searchTerm),

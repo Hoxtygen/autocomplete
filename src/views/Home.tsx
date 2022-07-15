@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AutoComplete } from "../components/AutoComplete";
 import { Suggestions } from "../components/Suggestions";
-import { debounce, searchCharacters } from "../utils/fetch";
+import { debounce, searchCharacters } from "../utils/helpers";
 
 export const Home = () => {
   const [characters, setCharacters] = useState<string[]>([]);
