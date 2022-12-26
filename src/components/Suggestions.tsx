@@ -10,7 +10,7 @@ export const Suggestions = ({
   return (
     <div className="suggestions-container">
       {suggestions.length === 0 && searchTerm !== "" ? (
-        <p>No result match your query</p>
+        <p className="no-match">No result match your query</p>
       ) : (
         <ul className="suggestions-options">
           {suggestions.map((suggest) => (
